@@ -8,7 +8,6 @@ const App = () => {
   const [winnerPlayer, setWinnerPlayer] = useState(null);
 
   const board = useSelector((state) => state.board);
-  console.log('board initial', board);
   const currentPlayer = useSelector((state) => state.currentPlayer);
   console.log('---currentplayer', currentPlayer);
   const dispatch = useDispatch();
@@ -18,7 +17,6 @@ const App = () => {
       dispatch(updateBoard(index, currentPlayer));
       console.log('***update', dispatch(updateBoard(index, currentPlayer)));
       dispatch(switchPlayer());
-      console.log('switch player', switchPlayer());
     }
 
     if (board[index] === "" && !winnerPlayer) {
@@ -58,9 +56,6 @@ const App = () => {
       </div>
     );
   };
-  // const checkPlayerValue = (e) => {
-
-  // }
 
   return (
     <div className="App">
