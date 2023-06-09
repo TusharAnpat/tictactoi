@@ -65,21 +65,25 @@ const App = () => {
   return (
     <div className="App">
       <div className='tictac'>
-        <div className='btnSelect'>
-          <Button style={{ border: '1px solid rgb(62 72 82 / 50%)', color: 'rgb(84, 84, 84)' }} onClick={null} variant="outlined">X</Button>
-          <Button style={{ border: '1px solid rgb(62 72 82 / 50%)', color: 'rgb(84, 84, 84)' }} onClick={null} variant="outlined">O</Button>
+        <div style={{padding: '10px'}}>
+          <div className='btnSelect'>
+            <Button style={{ border: '1px solid rgb(62 72 82 / 50%)',height: '40px',color: 'rgb(84, 84, 84)' }} onClick={null} variant="outlined">X</Button>
+            <Button style={{ border: '1px solid rgb(62 72 82 / 50%)', height: '40px',color: 'rgb(84, 84, 84)' }} onClick={null} variant="outlined">O</Button>
+          </div>
+          <FormLabel>Start game or select player</FormLabel>
         </div>
-        <FormLabel>Start game or select player</FormLabel>
-        <div className="board">
-          {renderCell(0)}
-          {renderCell(1)}
-          {renderCell(2)}
-          {renderCell(3)}
-          {renderCell(4)}
-          {renderCell(5)}
-          {renderCell(6)}
-          {renderCell(7)}
-          {renderCell(8)}
+        <div style={{ backgroundColor: '#14bdac',padding: '10px 0'}}>
+          <div className="board">
+            {renderCell(0)}
+            {renderCell(1)}
+            {renderCell(2)}
+            {renderCell(3)}
+            {renderCell(4)}
+            {renderCell(5)}
+            {renderCell(6)}
+            {renderCell(7)}
+            {renderCell(8)}
+          </div>
         </div>
         {winnerPlayer && (
           <div className="message">
