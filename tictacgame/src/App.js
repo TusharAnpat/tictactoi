@@ -69,15 +69,10 @@ const App = () => {
         </div>
         <div style={{ backgroundColor: '#14bdac',padding: '10px 0'}}>
           <div className="board">
-            {renderCell(0)}
-            {renderCell(1)}
-            {renderCell(2)}
-            {renderCell(3)}
-            {renderCell(4)}
-            {renderCell(5)}
-            {renderCell(6)}
-            {renderCell(7)}
-            {renderCell(8)}
+            {
+              board.map((ele,index)=>{
+              return renderCell(index)})
+            }
           </div>
         </div>
         {winnerPlayer && (
