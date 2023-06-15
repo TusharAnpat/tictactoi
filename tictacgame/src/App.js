@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateBoard, switchPlayer, resetGame } from './actions/action';
-import { Button, FormLabel } from '@mui/material'
+import { Box, Button, FormLabel } from '@mui/material'
 import './App.css';
+
 
 const App = () => {
   const [winnerPlayer, setWinnerPlayer] = useState(null);
+  const [selectedBox, setSelectedBox] = useState(1);
+  const [winXCount, setwinXCount] = useState(0);
+  const [winOCount, setwinOCount] = useState(0);
 
   const board = useSelector((state) => state.board);
   const currentPlayer = useSelector((state) => state.currentPlayer);
@@ -35,6 +39,7 @@ const App = () => {
       const [a, b, c] = winningCombinations[i];
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
         setWinnerPlayer(board[a]);
+        console.log('value check---->', board[a])
         return;
       }
     }
@@ -46,6 +51,14 @@ const App = () => {
 
   const handleResetClick = () => {
     dispatch(resetGame());
+    console.log('players winnerPlayer', winnerPlayer);
+    if (winnerPlayer === 'X') {
+      setwinXCount((preState) => preState + 1)
+    }else if(winnerPlayer==='O'){
+      setwinOCount((preState) =>preState + 1)
+    }else{
+      return
+    }
     setWinnerPlayer(null);
   };
 
@@ -57,30 +70,41 @@ const App = () => {
     );
   };
 
+  const handleBoxClick = (boxNumber) => {
+    setSelectedBox(boxNumber);
+    dispatch(updateBoard(currentPlayer));
+    console.log('***update', dispatch(updateBoard(currentPlayer)));
+    dispatch(switchPlayer());
+  };
+
   return (
     <div className="App">
       <div className='tictac'>
-        <div style={{padding: '10px'}}>
+        <div style={{ padding: '10px' }}>
           <div className='btnSelect'>
-            <Button style={{ border: '1px solid rgb(62 72 82 / 50%)',height: '40px',color: 'rgb(84, 84, 84)' }} onClick={null} variant="outlined">X</Button>
-            <Button style={{ border: '1px solid rgb(62 72 82 / 50%)', height: '40px',color: 'rgb(84, 84, 84)' }} onClick={null} variant="outlined">O</Button>
+            <Box onClick={() => handleBoxClick(1)} sx={{ display: 'flex', justifyContent: 'space-around', border: '1px solid rgb(62 72 82 / 50%)', borderBottom: selectedBox === 1 ? '2px solid #14bdac' : '1px solid black' }} >X <span style={{ marginLeft: '10px', lineheight: '20px' }}>{winXCount}</span></Box>
+            <Box onClick={() => handleBoxClick(2)} sx={{ display: 'flex', justifyContent: 'space-around', border: '1px solid rgb(62 72 82 / 50%)', borderBottom: selectedBox === 2 ? '2px solid #14bdac' : '1px solid black' }}>O <span style={{ marginLeft: '10px', lineheight: '20px' }}>{winOCount}</span></Box>
           </div>
-          <FormLabel>Start game or select player</FormLabel>
+
+          {selectedBox && selectedBox === 2 ? <FormLabel>O Turn</FormLabel> : <FormLabel>Start game or select player</FormLabel>}
         </div>
-        <div style={{ backgroundColor: '#14bdac',padding: '10px 0'}}>
+        <div style={{ backgroundColor: '#14bdac', padding: '10px 0' }}>
           <div className="board">
             {
-              board.map((ele,index)=>{
-              return renderCell(index)})
+              board.map((ele, index) => {
+                return renderCell(index)
+              })
             }
           </div>
         </div>
-        {winnerPlayer && (
-          <div className="message">
-            {winnerPlayer === "draw" ? "Match is draw!" : `Player ${winnerPlayer} wins`}
-            <Button variant='standard' onClick={handleResetClick}>Click Restart</Button>
-          </div>
-        )}
+        <div style={{ display: 'flex', direction: 'row', margintop: '15px' }}>
+          {winnerPlayer && (
+            <span className="message">
+              {winnerPlayer === "draw" ? "Match is draw!" : `Player ${winnerPlayer} wins`}
+            </span>
+          )}
+          <Button variant='standard' onClick={handleResetClick}>Click Restart</Button>
+        </div>
       </div>
     </div>
   );

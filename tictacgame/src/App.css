@@ -4,6 +4,11 @@
   padding: 10px;
   width: auto;
 }
+/* 
+input:focus {
+  border-color: green;
+  outline: 1px dotted #000
+} */
 
 .board {
   display: grid;
@@ -13,11 +18,7 @@
   padding: 10px;
   background-color:#14bdac;
 }
-/* .playerSelectBtn{
- border: 1px solid rgb(62 72 82 / 50%);
- font-size: larger;
- color: rgb(84, 84, 84);
-} */
+
 
 .btnSelect {
   display: grid;
@@ -36,6 +37,7 @@
 .message{
   font-weight: 700;
   color:#14bdac;
+  margin: 5px;
 }
 
 .cell {
