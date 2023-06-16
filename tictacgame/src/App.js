@@ -12,14 +12,14 @@ const App = () => {
   const [winOCount, setwinOCount] = useState(0);
 
   const board = useSelector((state) => state.board);
+  console.log('board ---->>>>', board);
   const currentPlayer = useSelector((state) => state.currentPlayer);
   console.log('---currentplayer', currentPlayer);
   const dispatch = useDispatch();
-  console.log('board ---->>>>', board);
   const handleCellClick = (index) => {
     if (board[index] === '') {
-      dispatch(updateBoard(index, currentPlayer));
       console.log('***update', dispatch(updateBoard(index, currentPlayer)));
+      dispatch(updateBoard(index, currentPlayer));
       dispatch(switchPlayer());
     }
 
@@ -38,8 +38,8 @@ const App = () => {
     for (let i = 0; i < winningCombinations.length; i++) {
       const [a, b, c] = winningCombinations[i];
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-        setWinnerPlayer(board[a]);
         console.log('value check---->', board[a])
+        setWinnerPlayer(board[a]);
         return;
       }
     }
@@ -72,8 +72,8 @@ const App = () => {
 
   const handleBoxClick = (boxNumber) => {
     setSelectedBox(boxNumber);
-    dispatch(updateBoard(currentPlayer));
     console.log('***update', dispatch(updateBoard(currentPlayer)));
+    dispatch(updateBoard(currentPlayer));
     dispatch(switchPlayer());
   };
 
